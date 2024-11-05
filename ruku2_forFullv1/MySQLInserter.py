@@ -71,7 +71,7 @@ class MySQLInserter:
 
             for key, value in data.items():
                 if isinstance(value, str) and value.startswith('POLYGON'):  # 检查是否是WKT格式
-                    placeholders.append(f"ST_GeomFromText(%s)")
+                    placeholders.append(f"ST_GeomFromText(%s, 4326)")
                 else:
                     placeholders.append('%s')
                 values.append(value)

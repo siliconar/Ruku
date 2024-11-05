@@ -12,7 +12,8 @@ packages/
 *.suo  
 *.user  
 *.sln.docstates  
-  
+**/__pycache__/
+
 # Build results  
 [Dd]ebug/  
 [Rr]elease/  

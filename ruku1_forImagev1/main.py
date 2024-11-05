@@ -33,7 +33,7 @@ from ArchiveManager import ArchiveManager   #封装的，一次可以操作归�
 folder_path = 'C:/Users/SITP/Desktop/好看'
 
 ####固定变量
-file_translation_file = 'C:/Users/SITP/Desktop/sun04/rukuv1/translate_meta2label.csv'  # translation.csv 文件的路径
+file_translation_file = 'C:/Users/SITP/Desktop/sun04/Ruku/ruku1_forImagev1/translate_meta2label.csv'  # translation.csv 文件的路径
 
 obj_thumb_resizer = ImageResizer()  # 用于生成thumb的类，详细可以参考test_thumb.py
 
@@ -165,17 +165,22 @@ for entry in os.listdir(folder_path):
                 'is_deleted': 0
             }
 
+
+            #Geotiff大写
+            data_meta['xml_product_format'] = data_meta['xml_product_format'].upper()
+            # print(data_meta['xml_product_format'])
             # 'POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))'
-            str_polygon = 'POLYGON((' + str(data_meta['xml_top_left_longitude']) + ' ' + \
-                          str(data_meta['xml_top_left_latitude']) + ',' + \
-                          str(data_meta['xml_top_right_longitude']) + ' ' + \
-                          str(data_meta['xml_top_right_latitude']) + ',' + \
-                          str(data_meta['xml_bottom_right_longitude']) + ' ' + \
-                          str(data_meta['xml_bottom_right_latitude']) + ',' + \
-                          str(data_meta['xml_bottom_left_longitude']) + ' ' + \
-                          str(data_meta['xml_bottom_left_latitude']) + ',' + \
-                          str(data_meta['xml_top_left_longitude']) + ' ' + \
-                          str(data_meta['xml_top_left_latitude']) + '))'   #请注意，一个四边形，一定要5个点，最后一个点和第一个坐标相同
+            str_polygon = 'POLYGON((' + str(data_meta['xml_top_left_latitude']) + ' ' + \
+                          str(data_meta['xml_top_left_longitude']) + ',' + \
+                          str(data_meta['xml_top_right_latitude']) + ' ' + \
+                          str(data_meta['xml_top_right_longitude']) + ',' + \
+                          str(data_meta['xml_bottom_right_latitude']) + ' ' + \
+                          str(data_meta['xml_bottom_right_longitude']) + ',' + \
+                          str(data_meta['xml_bottom_left_latitude']) + ' ' + \
+                          str(data_meta['xml_bottom_left_longitude']) + ',' + \
+                          str(data_meta['xml_top_left_latitude']) + ' ' + \
+                          str(data_meta['xml_top_left_longitude']) + '))'   #请注意，一个四边形，一定要5个点，最后一个点和第一个坐标相同,注意，一定要先lat后long
+            # print('str_poly = '+str_polygon)
 
             product_detail_extra = {
                 'thumb_url': file_minio_thumb_full,

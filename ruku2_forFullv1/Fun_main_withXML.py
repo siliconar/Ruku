@@ -45,12 +45,15 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     file_SW_full = os.path.join(file_basepath, file_basename_nosuffix+'_SW.geotiff')
     file_VN_full = os.path.join(file_basepath, file_basename_nosuffix + '_VN.geotiff')
     file_jpg_full = os.path.join(file_basepath, file_basename_nosuffix + '.jpg')
+    file_tar_full = os.path.join(file_basepath, file_basename_nosuffix + '.tar')
     if not os.path.exists(file_SW_full):
         raise ValueError(f"No File found with {file_SW_full}.")
     if not os.path.exists(file_VN_full):
         raise ValueError(f"No File found with {file_VN_full}.")
     if not os.path.exists(file_jpg_full):
         raise ValueError(f"No File found with {file_jpg_full}.")
+    if not os.path.exists(file_tar_full):
+        raise ValueError(f"No File found with {file_tar_full}.")
     ## 读取描述文件
     obj_xml_reader = XMLReader(file_xml_full, file_translation_file)  # 类实例，用于提取meta信息，写成json格式
     data_meta = obj_xml_reader.get_translated_metadata()  # meta数据
@@ -87,6 +90,7 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     file_minio_basepath = 'satellite/' +cur_SatID_str+'/'+cur_year_str+'/'+cur_month_str+cur_day_str+'/'+str(cur_ProductID_int) #'/platform/G5A/年/月日/产品号'
     file_minio_browse2_full = file_minio_basepath+'/'+ os.path.basename(file_jpg_full)   # minio的browse文件全路径
     file_minio_thumb_full = file_minio_basepath + '/' + os.path.basename(file_thumb_full)  # minio的thumb文件全路径
+    file_minio_tar_full = file_minio_basepath + '/' + os.path.basename(file_tar_full)  # minio的tar文件全路径
 
     detail_data_list = []
     for tmp_file_name  in os.listdir(file_basepath):  #遍历文件夹，上传文件
@@ -140,20 +144,21 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     }
 
     # 'POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))'
-    str_polygon = 'POLYGON((' + str(data_meta['xml_top_left_longitude']) + ' ' + \
-                  str(data_meta['xml_top_left_latitude']) + ',' + \
-                  str(data_meta['xml_top_right_longitude']) + ' ' + \
-                  str(data_meta['xml_top_right_latitude']) + ',' + \
-                  str(data_meta['xml_bottom_right_longitude']) + ' ' + \
-                  str(data_meta['xml_bottom_right_latitude']) + ',' + \
-                  str(data_meta['xml_bottom_left_longitude']) + ' ' + \
-                  str(data_meta['xml_bottom_left_latitude']) + ',' + \
-                  str(data_meta['xml_top_left_longitude']) + ' ' + \
-                  str(data_meta['xml_top_left_latitude']) + '))'  # 请注意，一个四边形，一定要5个点，最后一个点和第一个坐标相同
+    str_polygon = 'POLYGON((' + str(data_meta['xml_top_left_latitude']) + ' ' + \
+                  str(data_meta['xml_top_left_longitude']) + ',' + \
+                  str(data_meta['xml_top_right_latitude']) + ' ' + \
+                  str(data_meta['xml_top_right_longitude']) + ',' + \
+                  str(data_meta['xml_bottom_right_latitude']) + ' ' + \
+                  str(data_meta['xml_bottom_right_longitude']) + ',' + \
+                  str(data_meta['xml_bottom_left_latitude']) + ' ' + \
+                  str(data_meta['xml_bottom_left_longitude']) + ',' + \
+                  str(data_meta['xml_top_left_latitude']) + ' ' + \
+                  str(data_meta['xml_top_left_longitude']) + '))'  # 请注意，一个四边形，一定要5个点，最后一个点和第一个坐标相同,注意，一定要先lat后long
 
     product_detail_extra = {
         'thumb_url': file_minio_thumb_full,
         'preview_url': file_minio_browse2_full,
+        'tar_url': file_minio_tar_full,
         'polygon': str_polygon,  # 'POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))'
         'xml_image_gsd': 30
     }
