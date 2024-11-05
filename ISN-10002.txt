@@ -1,3 +1,4 @@
+##V2.1 【两程序】取消cache
 ##V2.0 
 【ruku2_forFullv1】中，添加了入库tar包。
 【两程序】修正了Product_detail表中，polygon列中，geometry经纬度写反，以及SRID 4326问题。这会导致无法入库
