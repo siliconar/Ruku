@@ -1,3 +1,5 @@
+
+##V2.1  【ruku2_forFullv1】中，修改了tar_url在数据表中的位置，由product_detail转移到product_archive表中
 ##V2.1 【两程序】取消cache
 ##V2.0 
 【ruku2_forFullv1】中，添加了入库tar包。

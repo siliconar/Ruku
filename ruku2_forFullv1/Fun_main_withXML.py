@@ -118,6 +118,7 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
             'file_path': file_minio_basepath,
             'is_deleted': 0,
             'reason': 'test03',
+            'tar_url': file_minio_tar_full,
             'archive_time': datetime.now()
     }
 
@@ -158,7 +159,6 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     product_detail_extra = {
         'thumb_url': file_minio_thumb_full,
         'preview_url': file_minio_browse2_full,
-        'tar_url': file_minio_tar_full,
         'polygon': str_polygon,  # 'POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))'
         'xml_image_gsd': 30
     }
