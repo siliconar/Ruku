@@ -46,6 +46,7 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     file_VN_full = os.path.join(file_basepath, file_basename_nosuffix + '_VN.geotiff')
     file_jpg_full = os.path.join(file_basepath, file_basename_nosuffix + '.jpg')
     file_tar_full = os.path.join(file_basepath, file_basename_nosuffix + '.tar')
+
     if not os.path.exists(file_SW_full):
         raise ValueError(f"No File found with {file_SW_full}.")
     if not os.path.exists(file_VN_full):
@@ -54,11 +55,36 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
         raise ValueError(f"No File found with {file_jpg_full}.")
     if not os.path.exists(file_tar_full):
         raise ValueError(f"No File found with {file_tar_full}.")
+
+    bSWIR_RadCal = False
+    bSWIR_Spectralresponse = False
+    bVNIR_RadCal = False
+    bVNIR_Spectralresponse = False
+    for file_name in os.listdir(file_basepath):
+        # 检查文件名是否以 "SWIR_RadCal.raw" 结尾
+        if  file_name.endswith("SWIR_RadCal.raw"):
+            bSWIR_RadCal = True
+        if  file_name.endswith("SWIR_Spectralresponse.raw"):
+            bSWIR_Spectralresponse = True
+        if  file_name.endswith("VNIR_RadCal.raw"):
+            bVNIR_RadCal = True
+        if  file_name.endswith("VNIR_Spectralresponse.raw"):
+            bVNIR_Spectralresponse = True
+
+    if not bSWIR_RadCal:
+        raise ValueError(f"No File found with SWIR_RadCal.")
+    if not bSWIR_Spectralresponse:
+        raise ValueError(f"No File found with SWIR_Spectralresponse")
+    if not bVNIR_RadCal:
+        raise ValueError(f"No File found with VNIR_RadCal")
+    if not bVNIR_Spectralresponse:
+        raise ValueError(f"No File found with VNIR_Spectralresponse")
+
     ## 读取描述文件
     obj_xml_reader = XMLReader(file_xml_full, file_translation_file)  # 类实例，用于提取meta信息，写成json格式
     data_meta = obj_xml_reader.get_translated_metadata()  # meta数据
     ## 提取一些数据方便使用
-    cur_SceneID_int = data_meta['xml_scene_id']  # 景号
+    cur_SceneID_str = data_meta['xml_scene_id']  # 景号，注意这是个string
     cur_ProductID_int = data_meta['basic_product_id']  # 产品号
     cur_SatID_str = data_meta['xml_satellite_id']  # 卫星ID
     cur_StartTm_dt = datetime.strptime(data_meta['xml_start_time'], "%Y-%m-%d %H:%M:%S")

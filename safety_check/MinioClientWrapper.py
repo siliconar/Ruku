@@ -81,6 +81,18 @@ class MinioClientWrapper:
         except S3Error as err:
             print(f"Folder upload failed: {err}")
 
+    def delete_file(self, bucket_name, object_name):
+        """
+        删除指定bucket中的文件
+        :param bucket_name: MinIO的bucket名称
+        :param object_name: MinIO中的对象路径
+        """
+        try:
+            self.client.remove_object(bucket_name, object_name)
+            print(f"File {bucket_name}/{object_name} deleted successfully.")
+        except S3Error as err:
+            print(f"File deletion failed: {err}")
+
     # 检查文件是否存在,反回true false
     def file_exists(self,bucket_name, object_name):
         try:

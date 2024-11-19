@@ -101,7 +101,7 @@ for entry in os.listdir(folder_path):
             obj_meta_reader = MetaReader(file_meta_full, file_translation_file)     #类实例，用于提取meta信息，写成json格式
             data_meta = obj_meta_reader.get_translated_metadata()                   #meta数据
             ## 提取一些数据方便使用
-            cur_SceneID_int = data_meta['xml_scene_id']                             #景号
+            cur_SceneID_str = data_meta['xml_scene_id']                             #景号,注意这是个string
             cur_ProductID_int = data_meta['basic_product_id']                       #产品号
             cur_SatID_str = data_meta['xml_satellite_id']                           #卫星ID
             cur_StartTm_dt = datetime.strptime(data_meta['xml_start_time'], "%Y-%m-%d %H:%M:%S")
@@ -116,11 +116,11 @@ for entry in os.listdir(folder_path):
                 continue
 
             ## 生成thumb图
-            file_thumb_full = os.path.join(folder_scene_fullpath, str(cur_ProductID_int)+'_'+str(cur_SceneID_int)+'_thumb.jpg')  # thumb文件
+            file_thumb_full = os.path.join(folder_scene_fullpath, str(cur_ProductID_int)+'_'+str(cur_SceneID_str)+'_thumb.jpg')  # thumb文件
             obj_thumb_resizer.save_resized_image(file_browse_full,300,file_thumb_full)
 
             #拷贝browse，给browse图换个名字，因为一会上传minio方便
-            file_browse2_full = os.path.join(folder_scene_fullpath, str(cur_ProductID_int)+'_'+str(cur_SceneID_int) + '.png')   #新的browse文件
+            file_browse2_full = os.path.join(folder_scene_fullpath, str(cur_ProductID_int)+'_'+str(cur_SceneID_str) + '.png')   #新的browse文件
             shutil.copy(file_browse_full, file_browse2_full)
 
             ## 生成本地新的存放路径(可能不做)

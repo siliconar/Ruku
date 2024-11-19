@@ -1,3 +1,7 @@
+##V3.0 
+【ruku2_forFullv1】中，增加了定标系数的检查，没有的话入库失败
+添加了一个新的程序【safety_check】，用于检查数据库中内容是否全，以及一键清楚某个产品号在数据库中的记录
+【三程序】MinioClientWrapper类中，都添加了可以检查文件是否存在的函数file_exists
 
 ##V2.1  【ruku2_forFullv1】中，修改了tar_url在数据表中的位置，由product_detail转移到product_archive表中
 ##V2.1 【两程序】取消cache

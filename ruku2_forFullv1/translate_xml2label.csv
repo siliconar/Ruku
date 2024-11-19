@@ -6,7 +6,7 @@ SensorID,xml_sensor_id,string
 ProduceTime,xml_produce_time,datetime
 Level,xml_level,string
 ProductFormat,xml_product_format,string
-SceneID,xml_scene_id,int
+SceneID,xml_scene_id,string
 TaskType,xml_task_type,string
 BandsCount,xml_bands_count,int
 BandsID,xml_bands_id,string

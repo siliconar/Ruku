@@ -92,3 +92,15 @@ class MinioClientWrapper:
             print(f"File {bucket_name}/{object_name} deleted successfully.")
         except S3Error as err:
             print(f"File deletion failed: {err}")
+
+    # 检查文件是否存在,反回true false
+    def file_exists(self, bucket_name, object_name):
+        try:
+            objects = self.client.list_objects(bucket_name, prefix=object_name, recursive=False)
+            for obj in objects:
+                if obj.object_name == object_name:
+                    return True
+        except S3Error as err:
+            print(f"File file_exists failed: {err}")
+
+        return False
