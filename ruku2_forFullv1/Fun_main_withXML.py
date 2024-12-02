@@ -91,6 +91,13 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     cur_year_str = str(cur_StartTm_dt.year)  # 年
     cur_month_str = cur_StartTm_dt.strftime("%m")  # 月
     cur_day_str = cur_StartTm_dt.strftime("%d")  # 日
+    cur_hour_str = cur_StartTm_dt.strftime("%H")  # 小时
+    cur_minute_str = cur_StartTm_dt.strftime("%M")  # 分
+    cur_second_str = cur_StartTm_dt.strftime("%S")  # 秒
+
+    basic_product_name = cur_SatID_str + '_AHSI_' + cur_year_str + cur_month_str + cur_day_str + '_' + cur_hour_str + cur_minute_str + cur_second_str + '_' + str(
+        cur_ProductID_int),  # 卫星ID_AHSI_年月日_时分秒_ProductID
+
     ## 安全检查，检查数据库中，该内容是否存在
     bexist_basic = db_inserter.check_field_exists('product_basic', 'basic_product_id', cur_ProductID_int)
     if bexist_basic:
@@ -140,10 +147,10 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     archive_data = {
             'basic_product_id': cur_ProductID_int,
             'status': 1,
-            'file_name': os.path.basename(file_minio_basepath),
+            'file_name': basic_product_name,
             'file_path': file_minio_basepath,
             'is_deleted': 0,
-            'reason': 'test03',
+            'reason': 'test_forfull_v3.1',
             'tar_url': file_minio_tar_full,
             'archive_time': datetime.now()
     }
@@ -159,6 +166,7 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
     ## 入库product
     product_basic = {
         'basic_product_id': cur_ProductID_int,
+        'basic_product_name': basic_product_name,
         'is_valid': 1,
         'is_store': 1,  # 完整数据
         'source': 'ZY',  # 资源中心

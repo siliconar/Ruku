@@ -1,3 +1,8 @@
+##V3.1
+【ruku2_forFullv1】【ruku2_forImagev1】
+修改了表product_archive中的filename，内容为 卫星ID_AHSI_年月日_时分秒_产品号
+在表product_basic添加了basic_product_name，内容同上
+
 ##V3.0 
 【ruku2_forFullv1】中，增加了定标系数的检查，没有的话入库失败
 添加了一个新的程序【safety_check】，用于检查数据库中内容是否全，以及一键清楚某个产品号在数据库中的记录
