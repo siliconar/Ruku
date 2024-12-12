@@ -1,3 +1,6 @@
+##v3.2
+【ruku2_forFullv1】product_archive表，其中size字段，如果有tar，就填tar的大小
+
 ##V3.1
 【ruku2_forFullv1】【ruku2_forImagev1】
 修改了表product_archive中的filename，内容为 卫星ID_AHSI_年月日_时分秒_产品号

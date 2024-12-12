@@ -20,7 +20,7 @@ db_inserter = MySQLInserter(
 )  # 生成一个mysqt注入器，注意这个要close
 
 # ---------- 自动设置日志
-LogPath = 'C:/Users/SITP/Desktop/sun04/Ruku/safety_check/'
+LogPath = 'C:/Users/SITP/Desktop/sun04/'
 LogName = LogPath + "Log_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".log"
 
 # 创建日志记录器
@@ -53,6 +53,7 @@ else:
     logger.info("检查失败")
 
 #测试删除
+# obj_checker = Check_Delete_1_Scene(logger,db_inserter,minio_client,barrel)
 # bcheck = obj_checker.realDelete_All_with_productID(7321)
 
 

@@ -136,6 +136,7 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
             'size': str(os.path.getsize(tmp_full))
         })
 
+
     # minio_client.upload_file(barrel, file_minio_browse2_full, file_jpg_full)    #上传
     # minio_client.upload_file(barrel, file_minio_thumb_full, file_thumb_full)    #上传
     # print(file_minio_browse2_full)
@@ -150,8 +151,9 @@ def fun_withXML(file_xml_full, db_inserter, obj_thumb_resizer,minio_client,barre
             'file_name': basic_product_name,
             'file_path': file_minio_basepath,
             'is_deleted': 0,
-            'reason': 'test_forfull_v3.1',
+            'reason': 'test_forfull_v3.2',
             'tar_url': file_minio_tar_full,
+            'size': str(os.path.getsize(file_tar_full)), # 填入本地tar包的大小
             'archive_time': datetime.now()
     }
 
